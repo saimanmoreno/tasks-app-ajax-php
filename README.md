@@ -4,4 +4,4 @@ Uma aplicação simples de tarefas, feito usando PHP e MySQL no servidor, AJAX p
 
 # Screenshoot
 
-![alt text](https://github.com/saimanmoreno/mercado-cryptomoedas/blob/main/assets/imgs/screenshoot.png)
+![alt text](https://github.com/saimanmoreno/tasks-app-ajax-php/blob/main/assets/imgs/screenshoot.png)
