@@ -46,20 +46,25 @@
             <div class="col-md-5 pb-sm-3">
                 <div class="card">
                     <div class="card-body">
-                        <form>
+                        <form id="task-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" placeholder="Nome da tarefa">
+                                <input type="text" class="form-control" id="name" placeholder="Nome da tarefa" required>
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control" id="description" rows="10" cols="30"
                                     placeholder="Desrição da tarefa"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Criar tarefa</button>
+                            <button type="submit" id="submit-button" class="btn btn-success btn-block">Criar tarefa</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-md-7 ">
+                <div class="card mb-4" id="search-result">
+                    <div class="card-body">
+                        <ul id="container"></ul>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-bordered table-sm">

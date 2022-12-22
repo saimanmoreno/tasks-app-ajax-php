@@ -2,9 +2,11 @@
 
 include('database.php');
 
+
 $action = $_POST['action'];
 
 $action();
+
 
 function searchTasks()
 {
@@ -39,39 +41,27 @@ function searchTasks()
     }
 }
 
+
 function createTask()
 {
 
     global $conn;
 
-    $newTask = $_POST['newTask'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
 
-    /*
-    if (!empty($newTask)) {
+    if ($name) {
 
-        $query = "CREATE * FROM task WHERE name LIKE '%$searchText%'";
+        $query = "INSERT INTO task(name, description) VALUES ('$name', '$description')";
+
         $result = mysqli_query($conn, $query);
 
         if (!$result) {
-            die('Query error' . mysqli_error($conn));
+            die('Query failed! ' . mysqli_error($conn));
         }
 
-        $json = array();
-
-        // percorrer o resultado e converté-lo em um json
-        while ($row = mysqli_fetch_array($result)) {
-            $json[] = array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'description' => $row['description']
-            );
-        }
-
-        $jsonstring = json_encode($json);
-
-        echo $jsonstring;
+        echo "Tarefa criado com sucesso!";
     }
-    */
 }
 
 
