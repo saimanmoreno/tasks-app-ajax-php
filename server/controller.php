@@ -3,7 +3,16 @@
 include('database.php');
 
 
-$action = $_POST['action'];
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+} else if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+} else {
+    echo "NOT FOUND";
+}
+
+
+
 
 $action();
 
@@ -70,34 +79,27 @@ function listTasks()
 
     global $conn;
 
-    $tasks = $_POST['tasks'];
+    $query = "SELECT * FROM task";
+    $result = mysqli_query($conn, $query);
 
-    /*
-    if (!empty($newTask)) {
-
-        $query = "CREATE * FROM task WHERE name LIKE '%$searchText%'";
-        $result = mysqli_query($conn, $query);
-
-        if (!$result) {
-            die('Query error' . mysqli_error($conn));
-        }
-
-        $json = array();
-
-        // percorrer o resultado e converté-lo em um json
-        while ($row = mysqli_fetch_array($result)) {
-            $json[] = array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'description' => $row['description']
-            );
-        }
-
-        $jsonstring = json_encode($json);
-
-        echo $jsonstring;
+    if (!$result) {
+        die('Query error ' . mysqli_error($conn));
     }
-    */
+
+    $json = array();
+
+    // percorrer o resultado e converté-lo em um json
+    while ($row = mysqli_fetch_array($result)) {
+        $json[] = array(
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'description' => $row['description']
+        );
+    }
+
+    $jsonstring = json_encode($json);
+
+    echo $jsonstring;
 }
 
 
