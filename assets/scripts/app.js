@@ -1,7 +1,10 @@
 $(document).ready(function () {
 
-    $('#search-result').hide();
-    listTasks();
+    listTasks();                                                                    // listar as tarefas
+    $('#search-result').hide();                                                     // ocultar o card de resultados de pesquisa
+    $('#search').keyup(searchTasks);                                                // pesquisar as tarefas
+    $('#search').on('click', () => { $('#search').val(''); searchTasks(); });       // pesquisar as tarefas
+    $('#task-form').submit(createTask);                                             // adicionar nova tarefa
 
 
     // listar as tarefas
@@ -49,16 +52,44 @@ $(document).ready(function () {
     }
 
 
+    // criar uma tarefa
+    function createTask() {
+
+        e.preventDefault();
+
+        const name = $('#name').val();
+
+        // caso desativem o required
+        if (!name) return;
+
+        const postData = {
+            name: $('#name').val(),
+            description: $('#description').val(),
+            action: 'createTask'
+        }
+
+        var submitButton = $('#submit-button');
+
+        submitButton.text('Criando...');
+        submitButton.prop("disabled", true);
+
+        $.post('server/controller.php', postData, response => {
+            console.log(response);
+
+            $('#task-form').trigger('reset');
+        })
+
+        // 1 second delay
+        setTimeout(function () {
+            submitButton.text('Criar Tarefa');
+            submitButton.prop("disabled", false);
+            listTasks();
+        }, 500);
+    }
+
+
     // pesquisar as tarefas
-    $('#search').keyup(searchTasks);
-    $('#search').on('click', () => {
-
-        $('#search').val('');
-
-        searchTasks();
-
-    });
-    function searchTasks(e) {
+    function searchTasks() {
 
         let searchText = $('#search').val();
 
@@ -99,39 +130,4 @@ $(document).ready(function () {
         }
     }
 
-
-    // adicionar nova tarefa
-    $('#task-form').submit(function (e) {
-
-        e.preventDefault();
-
-        const name = $('#name').val();
-
-        // caso desativem o required
-        if (!name) return;
-
-        const postData = {
-            name: $('#name').val(),
-            description: $('#description').val(),
-            action: 'createTask'
-        }
-
-        var submitButton = $('#submit-button');
-
-        submitButton.text('Criando...');
-        submitButton.prop("disabled", true);
-
-        $.post('server/controller.php', postData, response => {
-            console.log(response);
-
-            $('#task-form').trigger('reset');
-        })
-
-        // 1 second delay
-        setTimeout(function () {
-            submitButton.text('Criar Tarefa');
-            submitButton.prop("disabled", false);
-            listTasks();
-        }, 500);
-    })
 })
