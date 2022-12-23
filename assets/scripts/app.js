@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
     listTasks();                                                                    // listar as tarefas
+
     $('#search-result').hide();                                                     // ocultar o card de resultados de pesquisa
-    $('#search').keyup(searchTasks);                                                // pesquisar as tarefas
-    $('#search').on('click', () => { $('#search').val(''); searchTasks(); });       // pesquisar as tarefas
+    
+    $('#search').keyup(searchTasks);                                                // pesquisar as tarefas ao escrever
+    $('#search').on('click', () => { $('#search').val(''); searchTasks(); });       // limpar resultados da tarefa ao clicar no input
     $('#task-form').submit(createTask);                                             // adicionar nova tarefa
 
 
